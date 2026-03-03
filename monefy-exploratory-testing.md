@@ -158,7 +158,7 @@ Verify that Balance button correctly calculates the overall Balance for selected
 
 ---
 ## Charter Prioritisation
-> Prioritisation is based on **criticality of the functionality to the app's core purpose** and **severity of findings discovered**. A charter covering a critical flow ranks highly regardless of whether bugs were found — because the cost of missing a defect there is highest.
+> Prioritisation is based on **criticality of the functionality to the app's core purpose** and **severity of findings discovered**. A charter covering a critical flow ranks highly regardless of whether bugs were found because the cost of missing a defect there is highest.
 
 | Priority | Charter | Reason |
 |----------|---------|--------|
@@ -222,6 +222,7 @@ Verify that Balance button correctly calculates the overall Balance for selected
 
 *End of Exploratory Testing Report — Monefy iOS App*
 *Testing performed manually on iOS device*
+
 
 
 
