@@ -142,7 +142,11 @@ The framework is divided into separate layers so each part has one clear respons
 - **Tests** — test files only contain assertions. No HTTP logic, no data generation.
 
 ### Test Isolation via Fixtures
-The `created_pet` fixture in `conftest.py` creates a pet before each test and deletes it in teardown, whether the test passes or fails. This means tests never share state through the API, a failed test does not leave data that affects the next one, and tests can run in any order.
+Two fixtures in conftest.py ensure no test leaves orphaned data in the API:
+created_pet — used by tests that need a pre-existing pet to operate on (read, update, delete). Creates a pet before the test and deletes it in teardown, whether the test passes or fails.
+tracked_client — used by tests that create pets themselves (e.g. TestCreatePet). Yields a (client, created_ids) tuple. Tests append each created pet's ID to created_ids; all registered IDs are deleted in teardown. Use this whenever a test calls client.add_pet(..) directly rather than relying on a pre-built pet.
+
+This means tests never share state through the API, a failed test does not leave data that affects the next one, and tests can run in any order.
 
 ### Custom Markers
 Tests are tagged with markers (`smoke`, `create`, `read`, `update`, `delete`, `negative`) so you can run targeted subsets. For example, just smoke tests for a quick check or just negative tests to verify error handling.
