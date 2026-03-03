@@ -39,11 +39,9 @@ class TestReadPetById:
     @pytest.mark.negative
     def test_get_pet_by_invalid_id_returns_400(self, client: PetClient):
         """GET /pet/{petId} with a non-integer ID should return HTTP 400."""
-        import requests
-        from config import config
-        raw = requests.get(f"{config.BASE_URL}/pet/not-an-id", timeout=10)
-        assert raw.status_code == 400, (
-            f"Expected 400 for invalid ID type, got {raw.status_code}"
+        response = client.get_pet_by_raw_id("not-an-id")
+        assert response.status_code == 400, (
+            f"Expected 400 for invalid ID type, got {response.status_code}"
         )
 
 

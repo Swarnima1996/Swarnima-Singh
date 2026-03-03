@@ -79,10 +79,30 @@ class PetClient:
         )
 
     def update_pet_with_form(self, pet_id: int, name: str, status: str) -> Response:
-        """POST /pet/{petId} — Updates a pet in the store with form data."""
+        """POST /pet/{petId} — Updates a pet in the store with form data.
+
+        This endpoint expects application/x-www-form-urlencoded, not JSON.
+        The Content-Type header is overridden per-request so the session-level
+        JSON header does not interfere.
+        """
         return self._session.post(
             f"{self.base_url}/pet/{pet_id}",
-            params={"name": name, "status": status},
+            data={"name": name, "status": status},
+            headers={"Content-Type": "application/x-www-form-urlencoded"},
+            timeout=self.timeout,
+        )
+
+    def get_pet_by_raw_id(self, pet_id: str) -> Response:
+        """GET /pet/{petId} — Accepts a raw string ID for invalid-input testing."""
+        return self._session.get(
+            f"{self.base_url}/pet/{pet_id}",
+            timeout=self.timeout,
+        )
+
+    def delete_pet_by_raw_id(self, pet_id: str) -> Response:
+        """DELETE /pet/{petId} — Accepts a raw string ID for invalid-input testing."""
+        return self._session.delete(
+            f"{self.base_url}/pet/{pet_id}",
             timeout=self.timeout,
         )
 

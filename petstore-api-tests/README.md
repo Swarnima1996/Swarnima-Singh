@@ -165,13 +165,12 @@ Faker and random generate unique pet names and IDs on every run so tests do not 
 
 Some tests fail because the live Petstore API does not fully follow its own OpenAPI specification. These are expected findings — the tests are correctly identifying real gaps:
 
-| # | Issue | Endpoint | Expected | Actual |
-|---|-------|----------|----------|--------|
+| #    | Issue | Endpoint | Expected | Actual |
+|------|-------|----------|----------|--------|
 | F-01 | PUT with a non-existent ID creates a new pet instead of returning 404 | PUT /pet | 404 | 200 |
 | F-02 | Non-integer path parameter returns 404 instead of 400 | GET, DELETE /pet/{id} | 400 | 404 |
 | F-03 | Invalid status value accepted with 200 OK — spec enum not enforced | POST /pet | 400 | 200 |
-| F-04 | Form update returns 415 Unsupported Media Type | POST /pet/{id} | 200 | 415 |
-| F-05 | Data changes occasionally do not persist due to shared sandbox usage | PUT /pet | Persisted | Not persisted |
+| F-04 | Data changes occasionally do not persist due to shared sandbox usage | PUT /pet | Persisted | Not persisted |
 
 ---
 

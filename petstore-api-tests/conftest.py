@@ -42,3 +42,26 @@ def created_pet(client: PetClient) -> Pet:
 def pet_payload() -> Pet:
     """Return a freshly generated Pet instance (not yet created via API)."""
     return PetFactory.build()
+
+
+@pytest.fixture(scope="function")
+def tracked_client(client: PetClient):
+    """
+    Fixture for tests that create pets directly (e.g. TestCreatePet).
+
+    Yields a (client, created_ids) tuple. Tests append any created pet ID
+    to created_ids and all pets are deleted in teardown, ensuring no
+    orphaned data is left in the API regardless of test outcome.
+
+    Usage:
+        def test_something(self, tracked_client):
+            client, created_ids = tracked_client
+            response = client.add_pet(pet)
+            created_ids.append(response.json()["id"])
+    """
+    created_ids: list[int] = []
+    yield client, created_ids
+
+    # --- teardown: clean up every pet registered during the test ---
+    for pet_id in created_ids:
+        client.delete_pet(pet_id)

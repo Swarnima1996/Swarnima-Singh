@@ -62,9 +62,7 @@ class TestDeletePet:
     @pytest.mark.negative
     def test_delete_pet_with_invalid_id_returns_400(self, client: PetClient):
         """DELETE /pet/{petId} with a non-integer ID should return HTTP 400."""
-        import requests
-        from config import config
-        raw = requests.delete(f"{config.BASE_URL}/pet/not-a-number", timeout=10)
-        assert raw.status_code == 400, (
-            f"Expected 400 for invalid pet ID format, got {raw.status_code}"
+        response = client.delete_pet_by_raw_id("not-a-number")
+        assert response.status_code == 400, (
+            f"Expected 400 for invalid pet ID format, got {response.status_code}"
         )
