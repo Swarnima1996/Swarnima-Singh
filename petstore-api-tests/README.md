@@ -1,6 +1,6 @@
 # Petstore API Test Framework
 
-Automated test suite for the **PET** domain of the [Swagger Petstore API v2](https://petstore.swagger.io/v2).
+Automated test suite for the PET domain of the [Swagger Petstore API v2](https://petstore.swagger.io/).
 
 Covers all CRUD operations: **Create**, **Read**, **Update**, and **Delete**.
 
